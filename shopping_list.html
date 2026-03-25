@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista</title>
+</head>
+<body>
+    <div class="container">
+    <header>
+      <h1> My Shopping List</h1>
+    </header>
+
+    <div class="add-item">
+      <input type="text" id="itemName" placeholder="termék neve">
+      <input type="number" id="quantity" placeholder="mennyiség">
+      <input type="number" id="price" placeholder="ár">
+      <button onclick="addItem()">Hozzáadás</button>
+    </div>
+
+    <table id="shoppingTable">
+      <thead>
+        <tr>
+          <th>Termék</th>
+          <th>Mennyiség</th>
+          <th>Ár</th>
+          <th>Összesen</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="itemList"></tbody>
+    </table>
+
+    <div class="total">
+      Összesen: Ft<span id="totalAmount"> 0</span>
+    </div>
+  </div>
+</body>
+</html>
