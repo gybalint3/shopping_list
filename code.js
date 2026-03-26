@@ -38,7 +38,11 @@ let items = [];
 
       items.forEach((item, index) => {
         const row = document.createElement('tr');
-        row.innerHTML = 
+        console.log(item)
+        console.log(item.name)
+        console.log(item.name)
+
+        row.innerHTML = `<td>${item.name}</td>  <td>${item.qty}</td>  <td>${item.price}</td> <td>${calculateSubtotal(item)}</td>`
       
         tbody.appendChild(row);
       });
@@ -46,7 +50,7 @@ let items = [];
       document.getElementById('totalAmount').textContent = calculateTotal();
     }
 
-    // Allow pressing Enter to add item
+  
     document.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
         addItem();
