@@ -1,9 +1,14 @@
 let items = [];
 
     function addItem() {
+      
       const name = document.getElementById('itemName').value.trim();
       const qty = parseFloat(document.getElementById('quantity').value);
       const price = parseFloat(document.getElementById('price').value);
+
+
+
+
 
       if (!name || !qty || !price) {
         alert("Please fill in all fields!");
@@ -24,6 +29,8 @@ let items = [];
       renderList();
     }
 
+    
+
     function calculateSubtotal(item) {
       return (item.qty * item.price).toFixed(2);
     }
@@ -38,13 +45,14 @@ let items = [];
 
       items.forEach((item, index) => {
         const row = document.createElement('tr');
-        console.log(item)
-        console.log(item.name)
-        console.log(item.name)
+        row.innerHTML =
+      `<td>${item.name}</td>` +
+      `<td>${item.qty}</td>` +
+      `<td>${item.price.toFixed(2)}</td>` +
+      `<td>${calculateSubtotal(item)}</td>` +
+      `<td><span class="remove" data-index="${index}" style="cursor:pointer;">\u00d7</span></td>`;
 
-        row.innerHTML = `<td>${item.name}</td>  <td>${item.qty}</td>  <td>${item.price}</td> <td>${calculateSubtotal(item)}</td>`
-      
-        tbody.appendChild(row);
+    tbody.appendChild(row);
       });
 
       document.getElementById('totalAmount').textContent = calculateTotal();
@@ -56,3 +64,16 @@ let items = [];
         addItem();
       }
     });
+
+
+    document.getElementById('itemList').addEventListener('click', function (e) {
+  const target = e.target;
+  if (target && target.classList.contains('remove')) {
+    const idx = parseInt(target.dataset.index, 10);
+    if (!Number.isNaN(idx)) {
+      removeItem(idx);
+      // if you have saveData(), call it here:
+      // saveData();
+    }
+  }
+});
