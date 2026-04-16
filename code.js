@@ -53,10 +53,10 @@ let items = [];
       `<td><span class="remove" data-index="${index}" style="cursor:pointer;">\u00d7</span></td>`;
 
     tbody.appendChild(row);
-      });
+      saveData();});
 
       document.getElementById('totalAmount').textContent = calculateTotal();
-    }
+    saveData();}
 
   
     document.addEventListener('keypress', function(e) {
@@ -72,8 +72,16 @@ let items = [];
     const idx = parseInt(target.dataset.index, 10);
     if (!Number.isNaN(idx)) {
       removeItem(idx);
-      // if you have saveData(), call it here:
-      // saveData();
+      
+      saveData();
     }
   }
 });
+
+function saveData(){
+    localStorage.setItem("data", listContainer.innerHTML )
+}
+function showTask(){
+    listContainer.innerHTML = localStorage.getItem("data")
+}
+showTask();
