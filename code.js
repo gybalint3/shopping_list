@@ -53,16 +53,17 @@ let items = [];
       `<td><span class="remove" data-index="${index}" style="cursor:pointer;">\u00d7</span></td>`;
 
     tbody.appendChild(row);
-      saveData();});
+    });
 
       document.getElementById('totalAmount').textContent = calculateTotal();
-    saveData();}
-
+      saveData();}
+//
   
     document.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
         addItem();
       }
+      saveData();
     });
 
 
@@ -78,10 +79,27 @@ let items = [];
   }
 });
 
+
+
 function saveData(){
-    localStorage.setItem("data", listContainer.innerHTML )
+    localStorage.setItem("shopping_items", JSON.stringify(items));
 }
-function showTask(){
-    listContainer.innerHTML = localStorage.getItem("data")
+function loadData(){
+    const raw = localStorage.getItem("shopping_items");
+    if (!raw) return;
+    try {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+            items = parsed.map(it => ({
+                name: String(it.name || ''),
+                qty: Number(it.qty) || 0,
+                price: Number(it.price) || 0
+            }));
+        }
+    } catch (e) {
+        console.error('Failed to parse saved items', e);
+        items = [];
+    }
+    renderList();
 }
-showTask();
+loadData();
